@@ -10,8 +10,9 @@ You'll see a local folder at the root level. It contains a `docker-compose.yml` 
 To run the app, follow these steps:
 
 1. Install Docker: https://docs.docker.com/get-docker/
-2. cd local
-2. Run the app: `docker compose up`
+2. Clone the repo: `git clone ...`
+3. Run `cd local`
+4. Run the app: `docker compose up`
 
 The app will start running on http://localhost:3000. The hot-reloading feature is enabled by default. Swagger is enabled by default as well. You can access it on http://localhost:3000/api/docs.
 
