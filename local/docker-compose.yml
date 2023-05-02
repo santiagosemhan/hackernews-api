@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  app:
+    build:
+      context: ../
+      dockerfile: ./local/Dockerfile
+    container_name: my-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../:/app
+    environment:
+      MONGO_URI: mongodb://root:root@mongo:27017/hackernews?authSource=admin
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
