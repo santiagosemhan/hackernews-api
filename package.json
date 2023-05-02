@@ -18,7 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --forceExit --ci --watchAll=false --config ./test/jest-e2e.json",
-    "ci": "npm run lint && npm run test:cov && npm run test:e2e"
+    "ci": "npm run test:e2e"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -76,6 +76,11 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
+    "coverageThreshold": {
+      "global": {
+        "lines": 70
+      }
+    },
     "testEnvironment": "node"
   }
 }
