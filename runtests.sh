@@ -18,21 +18,30 @@ do
 	docker stop $(docker ps -aq --no-trunc) && docker rm $(docker ps -aq --no-trunc)
 done
 
-# Create and Start containers in detached mode(Run containers in the background).Build services, no cache.
-docker compose -f ./test/docker-compose.yml up -d --build
+# Create database service as detached
+docker compose -f ./test/docker-compose.yml up -d --build mongodb
 RET=$?
 if [ $RET -ne 0 ]; then
   exit $RET
 fi
 
-# View output from containers
-docker compose -f ./test/docker-compose.yml logs -f app
+# Wait for the mongodb container to be ready
+while true; do
+  if docker compose -f ./test/docker-compose.yml exec mongodb mongosh --eval "printjson(db.adminCommand('ping'))" | grep "ok" >/dev/null; then
+    echo "MongoDB is up and running!"
+    break
+  else
+    echo "Waiting for MongoDB to start..."
+    sleep 1
+  fi
+done
 
-# List containers with only IDs
-docker compose -f ./test/docker-compose.yml ps -q app | xargs docker inspect -f '{{ .State.ExitCode }}' | grep -sq "^0$"
+
+echo "Starting app container and waiting for it to finish"
+docker compose -f ./test/docker-compose.yml up --build app --exit-code-from app
 RET=$?
 
-# Stops containers and removes containers, networks, volumes, and images created by up.
+# Stops and removes containers, networks, volumes, and images created by up.
 docker compose -f ./test/docker-compose.yml down -v
 
 # exit with the code from the docker-compose command
