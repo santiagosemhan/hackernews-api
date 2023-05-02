@@ -1,8 +1,8 @@
 # Apply Digital - Code Challenge
 
 ## Description
-This is an app the ingests data from the hacker news API and expose some endpoints to query that data.
-Also a cron job for fetching the data every 1 hour (prod) and 10 seconds (dev) is implemented.
+This app performs data ingestion from hacker news API and exposes some endpoints to query that data.
+Also it runs a cron job for fetching data every 1 hour (prod) and 10 seconds (dev).
 
 ## How to Run it locally
 You'll see a local folder at the root level. It contains a `docker-compose.yml` file that will run the app in a Docker container. It will spin up a mongoDB database and a Node.js server.

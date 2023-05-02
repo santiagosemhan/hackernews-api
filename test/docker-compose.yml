@@ -11,8 +11,8 @@ services:
       NODE_ENV: test
       MONGO_URI: mongodb://root:root@mongo:27017/test?authSource=admin
     depends_on:
-      - mongo
-  mongo:
+      - mongodb
+  mongodb:
     image: mongo:latest
     container_name: mongo
     environment:
