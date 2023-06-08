@@ -1,4 +1,4 @@
-# Apply Digital - Code Challenge
+# Hacker news API
 
 ## Description
 This app performs data ingestion from hacker news API and exposes some endpoints to query that data.
